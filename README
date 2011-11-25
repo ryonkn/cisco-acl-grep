@@ -1,0 +1,7 @@
+Perl Script
+
+Description: 
+    Cisco Routers/Switchs acl syslog(%SEC-6-IPACCESSLOGP) are grep and src/dst hostname resolve tool.
+
+Usage:
+    tail -F /var/log/router.log | ./acl-grep.pl <acl name>
