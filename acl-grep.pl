@@ -21,15 +21,13 @@ while ( <STDIN> ) {
 
     if ( $_ =~ /\%SEC-6-IPACCESSLOGP: list $aclname/ ) {
         my ( $month, $day, $time,  $router, $proto, $src, $dst ) = (split(/ /, $_))[0,1,2,3,12,13,17];
+
         my ( $srcip, $srcport ) = (split(/\(|\)/,$src))[0,1];
-
         my $srchost = get_hostname($srcip) . "($srcport)";
-        my ( $dstip, $dstport ) = (split(/\(|\)|\,/,$dst))[0,1];
 
+        my ( $dstip, $dstport ) = (split(/\(|\)|\,/,$dst))[0,1];
         my $dsthost = get_hostname($dstip) . "($dstport)";
 
-        if ( $dstport != 445 && $dstport != 135 && $dstport != 137 && $dstport != 139 ) {
-            printf("%-60s ---(%-03s)-->   %-40s   on %-30s(%3s %02d %s)\n", $srchost, $proto, $dsthost, $router, $month, $day, $time);
-        }
+        printf("%-60s ---(%-03s)--> %-60s on %-30s(%3s %02d %s)\n", $srchost, $proto, $dsthost, $router, $month, $day, $time);
     }
 }
